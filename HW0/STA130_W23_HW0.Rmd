@@ -1,7 +1,8 @@
 ---
-title: "STA130 Rstudio Homework 0"
+title: "STA130 Homework"
 author: "Josh Speagle & Scott Schwartz"
-date: "Winter 2022 Week 1"
+subtitle: Problem Set 0
+urlcolor: blue
 output:
   pdf_document: default
 ---
