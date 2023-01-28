@@ -1,0 +1,193 @@
+---
+title: "STA130 Rstudio Homework"
+author: "[Student Name] ([Student Number]), with Josh Speagle & Scott Schwartz"
+subtitle: OPTIONAL Problem Set 3.5 (UNGRADED)
+urlcolor: blue
+output:
+  pdf_document: default
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(tidyverse)
+```
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=TRUE, warning=FALSE)
+```
+
+# Instructions
+
+Complete the exercises in this `.Rmd` file and submit your `.Rmd` and knitted `.pdf` output through [Quercus](https://q.utoronto.ca/courses/296457) by 11:59 pm E.T. on Thursday, February 2. 
+
+**Please note that this supplementary set of R exercises is optional but recommended. It will not be graded.**
+
+# Question 1: Amazon Books
+
+The code below reads in data about [books sold on Amazon](https://dasl.datadescription.com/datafile/amazon-books/). Note that the height (`Height`), width (`Width`), and thickness (`Thick`) of books in this data frame are measured in inches.
+
+```{r}
+books <- read.csv("amazonbooks.csv")
+glimpse(books)
+```
+
+**(a)** What is/are the name of the book(s) with the smallest number of pages in this sample of books? How many pages does it/they have?
+
+```{r}
+# Type your code here 
+
+```
+
+**(b)** Create a summary table for the books represented in `books` which reports:
+
+- the total number of books written by each author,
+- the mean of the number of pages per book for each author, and
+- the standard deviation of the number of pages per book for each author. 
+
+```{r}
+# Type your code here 
+
+```
+
+**(c)** Modify your code from (b) to create a new summary table which contains only information for authors who wrote more than 2 books. Then, sort this table in decreasing order of number of books written.
+
+```{r}
+# Type your code here 
+
+```
+
+# Question 2: The Titanic
+
+At the time it departed from England in April 1912, the *RMS Titanic* was the largest ship in the world. During the night of April 14th to April 15th, the Titanic struck an iceberg and sank approximately 600\,km south of Newfoundland (a province in eastern Canada). Many people perished in this accident. The code below loads data about the passengers who were on board the Titanic at the time of the accident.
+
+```{r}
+titanic <- read_csv("titanic.csv")
+glimpse(titanic)
+```
+
+**(a)** Often, data sets that you will need to work with will be "messy", filled with many `NA` values, mislabeled/misleading/poorly labeled columns, incorrect entries, and/or unreliable observations (among numerous other common problems). This means that before you can start doing any meaningful analysis on a given a data set, you generally need to "clean" it first.
+
+First, use the `rename()` function to change the name of the following variables:
+
+- The variable `Adut_or_Chld` indicates which passengers were adults and which were children and should be changed to to `Adult_or_Child` to fix the spelling.
+- The variable `MWC` records whether the passenger was a man, woman or child and should be changed to `Man_Woman_or_Child` to make this clear.
+
+*Hint: Unless the transformed tibble is saved into a new object or overwrites the original tibble, like `oly12 <- oly12 %>% rename(Place_of_birth = PlaceOB)`, the changes won't be permanent.*
+
+```{r}
+# Type your code here 
+```
+
+Then, since many of their values are missing or unclear, modify the `titanic` data frame by removing the following variables: `Ticket_No`, `Boat_or_Body`, `CLass_Dept`, and `Class_Full`.
+
+```{r}
+# Type your code here 
+
+```
+
+**(b)** Create a summary table reporting the number of passengers on the Titanic (`n`), the number of passengers who survied (`n_surv`), and the proportion of passengers who survived (`prop_surv`).
+
+```{r}
+# Type your code here 
+
+```
+
+**(c)** Calculate the proportion of deaths for the following groups of passengers:
+
+- Men, women, and children.
+- Passengers aged between 25-40 years of age.
+- Men, women, and children among the passengers who paid more than 50 British pounds for their tickets.
+
+```{r}
+# Type your code here 
+
+```
+
+Write 2-4 sentences interpreting your findings for three groups above.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(d)** Identify the most common job among passengers of the Titanic.
+
+```{r}
+# Type your code here 
+
+```
+
+**(e)** Make at least one figure showing the age distribution for passengers with the job "General Labourer".
+
+```{r}
+# Type your code here 
+
+```
+
+Describe this distribution in 1-2 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(f)** Identify how many (if any) of the General Labourers on board the Titanic were women.
+
+```{r}
+# Type your code here 
+
+```
+
+**(g)** Create a tibble with the names of the passengers with the top 4 most expensive tickets, the corresponding prices of the tickets, and whether or not they survived the accident.
+
+```{r}
+# Type your code here
+
+```
+
+**(h)** Construct two histograms to visualize the distribution of ticket prices for survivors and non-survivors (i.e. one histogram for survivors and one for non-survivors).
+
+```{r, fig.width=6, fig.height=3}
+# Type your code here
+
+```
+
+Write 2-3 sentences comparing the two distributions based on these plots.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(i)** Construct a pair of boxplots (in the same figure) to visualize the distribution of ticket prices for survivors and non-survivors.
+
+```{r}
+# Type your code here
+
+```
+
+Write 2-3 sentences comparing the two distributions based on these plots.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(j)** Construct a summary table with the minimum, first quartile, median, mean, third quartile, and maximum ticket price for survivors and non-survivors.
+
+```{r, eval=FALSE, echo=TRUE}
+# Example code to demo quantile() function and is.na
+x <- c(1,2,3,4,5,6,NA,10)
+# Calculate the first quartile (25th percentile)
+# Then tell R to exclude any missing values, if there are any
+quantile(x, probs = 0.25, na.rm=TRUE)
+# As above, but with the third quartile (75th percentile)
+quantile(x, probs = 0.75, na.rm=TRUE)
+
+# If there are missing values in the vector you're working with
+# (or in one of the columns of a tibble), you'll want to use the
+# na.rm=FALSE option in functions like mean, median, etc, otherwise 
+# you will just get values of NA.
+# Run the following code to see this in action!
+mean(x)
+mean(x, na.rm=TRUE)
+median(x)
+median(x, na.rm=TRUE)
+```
+
+Write 2-3 sentences comparing the two distributions based on these summary tables.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(k)** Comment on the strengths and weaknesses of each of the visualizations and summary table constructed above.
+
+*REPLACE THIS TEXT WITH YOUR ANSWER*

@@ -1,0 +1,227 @@
+---
+title: "STA130 Rstudio Homework"
+author: "[Student Name] ([Student Number]), with Josh Speagle & Scott Schwartz"
+subtitle: Problem Set 3
+urlcolor: blue
+output:
+  pdf_document: default
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+library(openintro)
+library(tidyverse)
+# install.packages("VGAMdata")  # install if needed
+library(VGAMdata)
+```
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=TRUE, warning=FALSE)
+```
+
+# Instructions
+
+Complete the exercises in this `.Rmd` file and submit your `.Rmd` and knitted `.pdf` output through [Quercus](https://q.utoronto.ca/courses/296457) by 11:59 pm E.T. on Thursday, February 2. 
+
+# Question 1: 2012 Olympics
+
+The code below uses `names()` to show all the column names of the `oly12` data set and then `glimpse()` to provide a preview the entire data set. Note that the `oly12` data set is *not the same* as the `olympics` data set shown in class.
+
+```{r}
+names(oly12)  # convenient function to quickly glance at data set column names
+glimpse(oly12)
+```
+
+**(a)** During our class meeting this week, we looked at data for each country which participated in the 2012 Olympics (e.g. size of each country's Olympic team, number of medals won, etc.). In that data set, which we called `olympics`, there was one observation (i.e. one row) for each participating country. 
+
+What does each row in the `oly12` data set (loaded above) represent?
+
+*Hint: Type `?oly12` or `help(oly12)` in the console (on the bottom left corner) to view the help file for the `oly12` dataset in the Help tab (on the bottom right corner) of RStudio). Alternately, you can search for "oly12" in the Help tab.*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(b)** Determine the number of Olympic athletes who represented Canada (`Canada`) or the United States (`United States of America`) in the 2012 Olympic Games using the `filter()` function.
+
+*Hint: Applying the `filter()` function to the `Country` column of the `oly12` dataset will be much easier than sorting through each entry one at a time.*
+
+```{r}
+# Type your code here
+
+```
+
+**(c)** Determine the number of Olympic athletes who competed in classical gymnastics (`Gymnastics - Artistic` and `Gymnastics - Rhythmic`) or classical pool sports (`Diving` and `Swimming`).
+
+*Hint: You can see all the possible values for the `Sport` variable by applying the `levels()` function to the `oly12$Sport` column. You can count the number of possible levels using the `nlevels()` function.*
+
+```{r}
+# Type your code here
+
+```
+
+**(d)** Determine the number of Olympic athletes who competed in ANY gymnastic (`Gymnastics - Artistic`, `Gymnastics - Rhythmic`, `Trampoline`) or ANY pool sports (`Diving`, `Swimming`, `Synchronised Swimming`, and `Water Polo`) 
+
+*Hint: The `%in%` comparision operator could be useful here, which allows us to determine if a value `x` matches with an entry within a vector `v`. If we define `allGymnastics <- c("Gymnastics - Artistic", "Gymnastics - Rhythmic", "Trampoline")`, for instance, then `filter(Sport %in% allGymnastics)` would return entries that matched any of the categories in `allGymnastics`. See [this stackoverflow post](https://stackoverflow.com/questions/25647470/filter-multiple-values-on-a-string-column-in-dplyr) for additional discussion.*
+
+```{r}
+# Type your code here
+
+```
+
+**(e)** Create the data subset `oly12_FemaleArtisticRhythmicGymnasts`  that contains all female Olympic athletes who competed in artistic gymnastics or rhythmic gymnastics.
+
+*Hint: `names(oly12)` shows all the column names of the data set.*
+
+```{r}
+# Type your code here
+
+```
+
+**(f)** Use `oly12_FemaleArtisticRhythmicGymnasts` and `ggplot2` to create both boxplots and histograms to compare (1) the age distribution of female Olympic athletes competing in artistic gymnastics to (2) the age distribution of female Olympic athletes competing in rhythmic gymnastics.
+
+```{r}
+# Type your code here
+
+```
+
+**(g)** Answer the following questions in 1-2 sentences based on the plots you created in (d).
+
+1. Are the age distributions of female rhythmic gymnasts and female artistic gymnasts symmetrical or skewed?
+
+>> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+2. How do the medians, 25th percentiles, and 75th percentiles for ages of female rhythmic gymnasts and female artistic gymnasts compare?
+
+>> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+3. Based only on the histograms and boxplots, predict whether the standard deviation of the ages is similar or different and justify your reasoning.
+
+>> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(h)** Use `summarise()` to create a summary table of `oly12_FemaleArtisticRhythmicGymnasts` that report the following statistics based on the ages for female rhythmic gymnasts and female artistic gymnasts:
+
+- the minimum (`min`), 
+- the maximum (`max`),
+- the mean (`mean`),
+- the median (`median`), and
+- the standard deviation (`sd`).
+
+*Hint: Running `group_by()` over the relevant column before running `summarise()` will simultaneously generate summaries over both groups.*
+
+```{r}
+# Type your code here
+
+```
+
+Were you correct in your guess about the standard deviation in part (g) of the last question?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(i)** Use `mutate()` to create a new variable called `medal_points` that awards 3 points for a gold, 2 for a silver, and 1 for a bronze. Then, create a new tibble called `oly12_OneMedalClub` that contains athletes who won *exactly* one medal at the 2012 olympics. Finally, use the `glimpse()` function to verify the properties of your tibble.
+
+```{r}
+# Type your code here
+
+```
+
+**(j)** Use a combination of `select()`, `arrange()`, `desc()`, and/or `filter()` to:
+
+1. Find the `Name` and `Age` variables of the six oldest athletes who competed in the 2012 Olympics.
+
+```{r}
+# Type your code here
+
+```
+
+2. Find the `Name`, `Age` and `Sport` of the 6 youngest female athletes who competed in the 2012 Olympics.
+
+```{r}
+# Type your code here
+
+```
+
+3. Find the `Name`, `Age`, `Sport`, and `Event` for the 6 youngest and 6 oldest competitors who won gold medals at the 2012 Olympics.
+
+*Note that this can be run as two pieces of code rather than one piece of combined code.*
+
+```{r}
+# Type your code here 
+
+```
+
+
+# Question 2: The Data Consultant
+
+You have just been hired by a consultancy company. Congratulations! 
+
+Your new employer is doing a report on each Olympics for the past 10 years. Given your recent experience in STA130, you ask to be responsible for the 2012 summary.
+
+In addition, you happen to know that your new boss' favourite sports are badminton and weightlifting. You conclude that addressing these sports specifically might be an easy way to capture their attention. However, you also are aware that the report as a whole needs to describe all types of athletes and events within the 2012 Olympics. And, of course, you want to include appealing and informative plots and tables that your clients can easily understand and learn from. The more interesting the better!
+
+Remember: 
+- This is meant to be a quick report for your boss, so use full sentences and communicate in a clear and professional manner (so don't use slang or emojis). 
+- Grammar isn't the main focus of this assessment, although readability is important.
+- **Avoid "Analysis Paralysis"**: This is envisioned as a **30-60 minute exercise**, so you don't have time to exhaustively explore every aspect of the data set.
+-	**Avoid "Writer's Block"**: This is envisioned as a 200-400 word exercise, so focus on quickly finding something you can communicate and write about rather than worrying too much about the exact argument.
+
+**(a)** Watch this [7-minute video introduction](https://web.microsoftstream.com/video/22f20d20-f096-4934-bfb4-86c0caf9da85) to "hedging".
+
+**Hedging** is helpful whenever you can't say something is 100% one way or another, as is often the case. In statistics, hedging is often used with respect to the strength of the argument, the limitations of data, and the generalizability of the conclusions.
+
+> *REPLACE THIS TEXT WITH A STATEMENT CONFIRMING YOU HAVE WATCHED THE VIDEO ABOUT HEDGING (LINKED ABOVE).*
+
+**(b)** Provide a small introduction of 1-2 sentences to draw your reader in and explain what you'll be discussing. Be definitive about what your data is, and use hedging to highlight the limitations of the data.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(c)** Provide 1-2 clearly titled and labeled figures addressing interesting features of the 2012 Olympic athletes' ages.
+
+```{r}
+# Type your code here 
+
+```
+
+**(d)** Provide one or two clearly labeled summary tables addressing interesting features of the 2012 Olympic athletes' ages. 
+
+```{r}
+# Type your code here 
+
+```
+
+**(e)** Watch this [8-minute video introduction](https://web.microsoftstream.com/video/496ed3f7-4136-420f-9108-b5f3605bc899) to plagiarism.
+
+You don't need to cite any outside references for your report to your boss, but you will be referring to your own created figures and tables. We'll use this as an excuse to get started early thinking about the important topic of **plagarism** and as an exercise to start getting into the right referencing habits. Incorporating proper citations and references can be easy and natural, and almost always makes your writing better. It also helps you avoid potentially serious academic integrity violations!
+
+> *REPLACE THIS TEXT WITH A STATEMENT CONFIRMING YOU HAVE WATCHED THE VIDEO ABOUT PLAGARISM (LINKED ABOVE).*
+
+**(f)** Describe the interesting features of the 2012 Olympic athletes' ages that you've found, referencing the figures and summary tables created in (c) and (d) just above. Use at least two of the vocabulary words listed below. However, remember that your boss isn't a statistician so you will need to clearly define and explain the vocabulary you use.
+
+Vocabulary:
+
+- Location/Center (mean, median, mode)
+- Scale/Spread (range, IQR, var, sd, minimum, maximum)
+  - *Note: interpreting center and spread relative to each other can be helpful*
+- Shape (symmetric, left-skewed, right-skewed, unimodal, bimodal, multimodal, uniform)
+- Outliers/Extreme values
+  - *Note: this can be related to the tails of a distribution (heavy-tailed, thin-tailed)*
+- Frequency (most, least, pattern tendencies)
+
+You may also find the following phrases helpful:
+
+- Cleaning data
+- Missing data (`NA`)
+- Filtering data (`filter`)
+- Selecting data (`select`)
+- Sorting data (`arrange`, `desc`)
+- Grouping data (`group_by`)
+- Selecting a subset of variables (`select`)
+- Defining new variables (`mutate`)
+- Renaming variables (`rename`)
+- Producing new data frames
+- Creating summary tables (`summarise`)
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(g)** Finish with a conclusion to remind your boss of the key take home points from your summary about the Olympic athletes' ages. Be definitive about what your findings are, but use hedging to caveat the limitations of the conclusion more generally.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
