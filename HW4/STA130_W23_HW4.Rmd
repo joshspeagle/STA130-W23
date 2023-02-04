@@ -1,0 +1,390 @@
+---
+title: "STA130 Rstudio Homework"
+author: "[Student Name] ([Student Number]), with Josh Speagle & Scott Schwartz"
+subtitle: Problem Set 4
+urlcolor: blue
+output:
+  pdf_document: default
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=TRUE, warning=FALSE)
+```
+
+# Instructions
+
+Complete the exercises in this `.Rmd` file and submit your `.Rmd` and knitted `.pdf` output through [Quercus](https://q.utoronto.ca/courses/296457) by 11:59 pm E.T. on Thursday, February 9. 
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+## Question 1: Canadian Legal System
+
+A criminal court considers two opposing claims about a defendant: they are either **innocent** or **guilty**. In the Canadian legal system, the role of the prosecutor is to present convincing evidence that the defendant is not innocent. Lawyers for the defendant attempt to argue that the evidence is *not convincing enough* to rule out that the defendant could be innocent. If there is not enough evidence to convict the defendant and they are set free, the judge generally does not deliver a verdict of "innocent", but rather of *"not guilty"*.
+
+\
+**(a)** If we look at the criminal trial example in the hypothesis test framework, what would be the **null hypothesis** and what would be the **alternative**?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** In the context of this problem, describe what **rejecting the null hypothesis** would mean.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** In the context of this problem, describe what **failing to reject the null hypothesis** would mean.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** In the context of this problem, describe what a **type II error** would be.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)**  In the context of this problem, describe what a **type I error** would be.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 2: Twitter Usage
+
+Roughly one-in-five people (23\%) in the general population use the social media platform Twitter. Consider the following scenario:
+
+- Suppose that the Department of Statistical Sciences (DoSS) is conducting a study to see if this percentage/fraction (23\%, or $f_{\rm pop} = 0.23$) is the **same** among their undergraduate students (i.e. all students in an undergraduate statistics program that is run by DoSS) or potentially **different** (either higher or lower). 
+- Suppose $n=400$ DoSS students are **randomly selected** and asked whether or not they use Twitter ("yes" or "no").
+- Suppose that $n_{\rm yes} = 103$ of these $n = 400$ students respond that they use Twitter.
+
+\
+**(a)** What is the **null hypothesis** $H_0$ in terms of the **test statistic**, the fraction $f_{\rm stu}$ of students who use Twitter? What is the **alternative hypothesis** $H_1$ in terms of $H_0$? Please write your answer below using math notation including $H_0$, $H_1$, $f_{\rm stu}$, and $f_{\rm pop}$.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** In a simple sentence without $H_0$, $f_{\rm stu}$, and/or $f_{\rm pop}$ notation, what is the claim of the null hypothesis? Then, write down a similar sentence describing the alternative hypothesis without using  $H_1$, $f_{\rm stu}$, and/or $f_{\rm pop}$ notation.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Use the `sample()` function to simulate the number of students who use Twitter in a random sample of 400 DoSS students under the null hypothesis. How many Twitter users do you have in your simulated sample of 400 students?
+
+*Note 1: **You must include the `set.seed(11)` line in your code and run it every time you run the cell below to ensure the sample is fully reproducible.** This controls the "random number seed" that R uses to generate a list of pseudo-random numbers, which guarantees you will get the same set of "random" numbers each time. Normally the random number seed is set automatically when you initialize R by your computer using semi-random numbers such as the current time in milliseconds. For additional information, check out [this video](https://www.youtube.com/watch?v=C82JyCmtKWg).*
+
+*Note 2: Even though the exact counts of each option will deviate from the expected amount for a small sample, if you simulate enough coin flips (by increasing the value of the `size` argument, you'll eventually get approximately the expected proportion of outcomes. Feel free to explore whether this is true before finalizing your answer.*
+
+```{r}
+set.seed(11)  # REQUIRED so the random sample is reproducible!
+
+# Code your answer here; an example is shown below
+
+# setup
+n_sample = 5  # number of observations in random sample
+options <- c("Heads", "Tails")  # options to respond
+p_1 = 0.7  # probability of option 1
+p_options <- c(p_1, 1 - p_1)  # probabilities for both options
+
+# sample!
+responses <- sample(options, size=n_sample, prob=p_options, replace=TRUE)
+```
+
+\
+**(d)** Use `geom_bar()` to visualize the number of Twitter users versus non-Twitter users from your simulated sample with a bar plot.
+
+*Hint: You can make a vector a column of a `tibble` like this: `tibble(flips = c("Head", "Tail", "Tail"))`.*
+
+```{r}
+# Code your answer here
+
+```
+
+\
+**(e)** Use the simulated `responses` vector to compute the **simulated test statistic** $\hat{f}_{\rm stu}$, the simulated fraction of DoSS students who use Twitter.
+
+```{r}
+# Code your answer here
+
+```
+
+How does $\hat{f}_{\rm stu}$ compare to the general population fraction of $f_{\rm pop} = 0.23$ and to the observed fraction $f_{\rm stu}$ from the $n = 400$ sampled DoSS students?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(f)** Simulate the **sampling distribution** of the test statistic, i.e. the distribution of the simulated values $\hat{f}_{\rm stu}$, under the null hypothesis $H_0$. Set the random number seed to the *last 2 digits of your student number* and use a simulation of size $n_{\rm trials} = 1000$.
+
+*Note: You **must** include the `set.seed(student_num_last2)` line in your code and run it **every** time you run the cell below to ensure the result is fully reproducible.**
+
+*Hint: You will likely want to take advantage of "for loops" to repeat the simulations and calculations you have done above across many different trials. Please see the Week 4 lecture slides uploaded on the [course website](https://q.utoronto.ca/courses/296457) for some examples.*
+
+```{r}
+student_num =  # list your student number
+student_num_last2 =   # list the last two digits of your student number
+set.seed(student_num_last2 + 2)  # REQUIRED so the result is reproducible!
+
+# Code your answer here
+
+```
+
+\
+**(g)** Make a plot of the simulated sampling distribution. Then, describe the distribution in 1-2 sentences using some of the key words/phrases we have learned over the past few weeks.
+
+```{r}
+# Code your answer here
+
+```
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(h)** What is the definition of a **$p$-value**? Please comment on the difference between a **1-sided** versus a **2-sided** $p$-value and explain why the $p$-value associated with our null hypothesis $H_0$ and alternative $H_1$ hypothesis above is 2-sided rather than 1-sided.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(i)** Compute the $p$-value based on the null hypothesis $H_0$ using the values of $\hat{f}_{\rm stu}$ you computed from the sampling distribution.
+
+*Hint: Remember you can take advantage of "coercion" in R to compute the number of objects that satisfy a logical condition. For a 1-sided test where you only care about being greater or smaller than the measured test statistic, this might look like `p_1side = sum(sim_values > meas_value) / n_trials`. For a 2-sided test where you want to know whether it is "as or more extreme", you typically just need to double the 1-sided value to include the contribution from the other tail of the distribution, i.e. `p_2side = 2 * p_1side`.*
+
+```{r}
+# Code your answer here
+
+```
+
+\
+**(j)** Define a **rejection rule** based on a given **$\alpha$-level**, where we reject the null hypothesis $H_0$ if our $p$-value falls below a pre-specified $\alpha$ threshold (i.e. $p < \alpha$). At the $\alpha=0.05$ significance level, what is your conclusion about this hypothesis test based on your computed $p$-value?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(k)** Please select the correct statement regarding the interpretation of the $p$-value computed earlier and write 1-2 sentences justifying your answer. "My computed $p$-value is..."
+
+(A) "...the probability that the proportion of DoSS students who use Twitter matches the general population."
+
+(B) "...the probability that the proportion of DoSS students who use Twitter does not match the general population."
+
+(C) "...the probability of obtaining a number of students who use Twitter in a sample of 400 students at least as extreme as the result in this study."
+
+(D) "...the probability of obtaining a number of students who use Twitter in a sample of 400 students at least as extreme as the result in this study, if the prevalence of Twitter usage among all DoSS students matches the general population."
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(l)** Using the slightly-modified seed value in `set.seed()` below, re-run your code from earlier and re-compute your $p$-value. How much do the results change?
+
+```{r}
+set.seed(student_num_last2 + 1)  # REQUIRED so the results are reproducible!
+
+# Collect, copy, and paste your simulation code from earlier here
+
+```
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(m)** Now, re-compute your $p$-value but using 100 times more trials ($n_{\rm trials} = 100000$) for both the original random number seed and the slighty-modified seed value. How much do the results change now?
+
+```{r}
+set.seed(student_num_last2)  # REQUIRED so the results are reproducible!
+
+# Copy-paste your simulation code from earlier here (but with n_trials=100000)
+
+```
+
+```{r}
+set.seed(student_num_last2 + 1)  # REQUIRED so the results are reproducible!
+
+# Copy-paste your simulation code from earlier here (but with n_trials=100000)
+
+```
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 3: Scottish Medicine
+
+A Scottish woman noticed that her husband's scent changed. Six years later he was diagnosed with Parkinson's disease. His wife joined a Parkinson's charity and noticed that odour from other people. She mentioned this to researchers who decided to test her abilities. They recruited 6 people with Parkinson's disease and 6 people without the disease. Each of the recruits wore a t-shirt for a day, and the woman was asked to smell the t-shirts (in random order) and determine which shirts were worn by someone with Parkinson's disease. She was correct for 12 of the 12 t-shirts! You can read more about this experiment [here](http://www.bbc.com/news/uk-scotland-34583642).
+
+\
+**(a)** Without conducting a simulation, describe in 1-2 sentences what you would expect the sampling distribution of the proportion of correct guesses about the 12 shirts to look like if someone was just guessing randomly.
+
+**Hint: You might be able to draw some inspiration from some of the examples discussed in Week 4's class meeting as well as your results in Question 1.*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** Write down a hypothesis test that the woman being a lucky guesser (our null hypothesis, $H_0$) as opposed to having some ability to correctly identify Parkinson's disease by smell (the alternative hypothesis $H_1$).
+
+*Hint: Think carefully about whether you are performing a 1-sided or 2-sided hypothesis test here. How would you interpret your alternative hypothesis in each case?*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Carry out a simulation study and plot the simulated sampling distribution under the null hypothesis $H_0$. Then, compute the $p$-value given that the woman correctly classified 12 of 12 t-shirts (i.e. our observed test statistic).
+
+*Hint: You should be able to re-use a lot of your code from Question 2 here!*
+
+```{r}
+set.seed(student_num_last2 + 3)  # REQUIRED so the results are reproducible!
+N <- 1000  # feel free to increase this is you want finer precision
+
+# Code your answers here
+
+```
+
+\
+**(d)** Given an $p < \alpha=0.05$ rejection rule, what is your conclusion about this hypothesis test based on your computed $p$-value?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)** Actually, initially the woman correctly identified all 6 people who had been diagnosed with Parkinson's but *incorrectly* identified one of the others as having Parkinson's. It was only eight months later that the final individual was diagnosed with the disease. Assuming only 11 of 12 guesses being correct, what is the new associated $p$-value?
+
+*Hint: You should not have to re-run a whole new set of simulations to compute this new $p$-value. If you do decide to resimulate, please remember to include `set.seed(student_num_last2 + 2)` at the beginning of the code block.*
+
+```{r}
+# Code your answers here
+
+```
+
+\
+**(f)** Based on our $p < \alpha=0.05$ rejection rule, does the conclusion of the hypthesis test the same for an observed test statistic of 11/12 compared an observed test statistic of 12/12?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 4: Social Media and Anxiety
+
+There have been many questions regarding whether or not usage of social media increases anxiety levels. For example, do TikTok and Facebook posts create an unattainable sense of life success and satisfaction? Does procrastinating by watching YouTube videos or reading Twitter posts contribute unnecessary stress from deadline pressure? 
+
+To try and answer some of these questions, a study was conducted to examine the relationship between social media usage and student anxiety. Students were asked to categorize their social media usage as "High" if it exceeded more than 2 hours per day, and then student anxiety levels were scored through using series of questions. Higher scores on the questionnaire suggest higher student anxiety.
+
+```{r}
+# See if you can identiy what the `rep()` function does here
+social_media_usage <- c(rep("Low", 30), rep("High", 16));
+anxiety_score <- c(24.64, 39.29, 16.32, 32.83, 28.02, 
+                   33.31, 20.60, 21.13, 26.69, 28.90,
+                   26.43, 24.23, 7.10,  32.86, 21.06,
+                   28.89, 28.71, 31.73, 30.02, 21.96,
+                   25.49, 38.81, 27.85, 30.29, 30.72,
+                   21.43, 22.24, 11.12, 30.86, 19.92,
+                   33.57, 34.09, 27.63, 31.26,
+                   35.91, 26.68, 29.49, 35.32,
+                   26.24, 32.34, 31.34, 33.53,
+                   27.62, 42.91, 30.20, 32.54)
+anxiety_data <- tibble(social_media_usage, anxiety_score)
+glimpse(anxiety_data)
+```
+
+\
+**(a)** Assume that each group can be characterized by the **median** of their set of anxiety scores. Let's call the median anxiety scores $A_{\rm high}$ among the "high" social media usage group and $A_{\rm low}$ among the "low" social media usage group. Write down the null and alternative hypotheses $H_0$ and $H_1$ in math terms using $A_{\rm high}$ and $A_{\rm low}$. Then, explain is the claims of the null/alternative hypotheses in more simple language.
+
+*Note: Depending on your choice of alternative hypothesis, your answers below might involve either 1-sided or 2-sided tests. Please make sure all your calculations remain consistent with your initial choice.*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+Depending on your choice of alternative hypothesis, your answers might involve either a 1-sided or 2-sided test. Please set the value below to `TRUE` or `FALSE` accordingly to ensure your answers in the remaining sections remain consistent with your initial choice.
+
+```{r}
+test_2sided = 
+```
+
+\
+**(b)** Revisit your statements regarding the null hypotheses above with **confounding variables** in mind. In particular, consider that social media usage may be a self selecting process, with social media users potentially already more anxious people on average regardless of their social media usage. If we make a determination about the null hypothesis, are we actually addressing the initial question of "whether or not usage of social media increases anxiety levels"? Or are we just using a hypothesis test to examine if there is an observable difference between the two groups (regardless of its causes)?
+
+*Note: This distinction is often referred to using the cautionary phrase "correlation does not imply causation".*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Construct boxplots of `anxiety_score` for the two levels of social media usage. Then write 2-3 sentences describing and comparing the distributions of anxiety scores across the two social media usage groups.
+
+```{r, fig.height=2, fig.width=3.5}
+# Code your answers here
+
+```
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** What do these data visually suggest regarding the claim that the **median** anxiety level is different for those who use social media more than 2 hours per day compared to those who use social media less than 2 hours per day? 
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)** The code below computes the difference in the medians between the two samples (i.e. the 2-sample test statistic).
+
+
+```{r}
+# Note: including the .groups="drop" option in summarise() will suppress 
+# a friendly warning that R normally prints out:
+# "`summarise()` ungrouping output (override with `.groups` argument)".  
+test_stat <- anxiety_data %>% group_by(social_media_usage) %>%
+  summarise(medians = median(anxiety_score), .groups="drop") %>%
+  summarise(value = diff(medians))
+test_stat <- as.numeric(test_stat)
+if (test_2sided) {
+  test_stat <- abs(test_stat)
+}
+
+test_stat
+```
+The following code chunk provides an example of one iteration of a **permutation test**. In this test, we assume that our groups are identical under our null hypothesis. Mixing the two groups together, randomly generating new groups with the same sizes, and then recomputing our test statistic each time therefore should allow us to simulate values from the sampling distribution.
+
+```{r}
+set.seed(student_num_last2 + 3)  # REQUIRED so the results are reproducible!
+
+# randomly shuffle the social media scores among the high/low groups
+simdata <- anxiety_data %>% 
+  mutate(social_media_usage = sample(social_media_usage, replace=FALSE))
+
+# re-compute the test statistic
+sim_value <- simdata %>% group_by(social_media_usage) %>%
+  summarise(medians = median(anxiety_score), .groups="drop") %>%
+  summarise(value = diff(medians))
+
+sim_value
+```
+Based on the two code chunks above (which compute the test statistic and one simulation), fill out the code block below to carry out a simulation study under our permutation test and plot the simulated sampling distribution under the null hypothesis $H_0$. Then, compute the $p$-value given the value of the pre-computed test statistic.
+
+```{r, eval=FALSE}
+set.seed(student_num_last2 + 3)
+repetitions <- 1000  # feel free to increase this is you want finer precision
+simulated_values <- rep(NA, repetitions)
+
+for(i in 1:repetitions){
+  # perform a random permutation and compute the simulated test statistic
+  
+  
+  # store the simulated value
+  simulated_values[i] <- as.numeric(sim_value)
+}
+
+# convert vector results to a tibble
+sim <- tibble(median_diff = simulated_values)
+
+# plot the results
+
+# compute the p-value
+if (test_2sided) {
+  # If you are performing a 2-sided test we only care about the
+  # *absolute difference* between the two samples, not whether the difference
+  # is bigger or smaller
+  p_2side = sum(abs(simulated_values) >= abs(test_stat)) / N
+} else{
+  # We use the <= here because we are comparing "low" - "high"
+  p_1side = sum(simulated_values <= test_stat) / N
+}
+```
+
+\
+**(f)** Given an $p < \alpha=0.05$ rejection rule, what is your conclusion about this hypothesis test based on your computed $p$-value?
+
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(g)** Do these data support the claim that the **median** anxiety level is different for those who use social media more than 2 hours per day compared to those who use social media less than 2 hours per day?  How about the claim that "usage of social media increases anxiety levels"?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
