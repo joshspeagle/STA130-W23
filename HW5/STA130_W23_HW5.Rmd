@@ -1,0 +1,279 @@
+---
+title: "STA130 Rstudio Homework"
+author: "[Student Name] ([Student Number]), with Josh Speagle & Scott Schwartz"
+subtitle: Problem Set 5
+urlcolor: blue
+output:
+  pdf_document: default
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE)
+```
+
+# Instructions
+
+Complete the exercises in this `.Rmd` file and submit your `.Rmd` and knitted `.pdf` output through [Quercus](https://q.utoronto.ca/courses/296457) by 11:59 pm E.T. on Thursday, February 16. 
+
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+```{r}
+student_num =   # list your student number
+student_num_last3 =   # list the last three digits of your student number
+```
+
+
+# Question 1: Old Auto Claims, New Statistical Tricks
+
+Let's now look at some data stored in the `auto_claims_population.csv` data set, which includes claims paid (in USD) to a sample of auto insurance claimants 50 years of age and older in a specific year. Let's assume that this dataset defines the entire population of $n=1000$ payouts that year. 
+
+```{r, message=FALSE}
+autoclaimspop <- read_csv("auto_claims_population.csv")
+glimpse(autoclaimspop)
+```
+
+\
+**(a)** Create a single random sample of 20 car insurance claims from the population of claims stored in the `auto_claims_population.csv` data set and store these 20 observations in a `tibble` called `ages20`. Compute the `min()`, `mean()`, `median()`, `max()`, and `sd()` of the `AGE` variable using the `summarise()` function and include the `n=n()` summary as well to confirm the overall sample size. Then, create a histogram of the sample.
+
+*Hint: Check to ensure that the random sample is taken **without replacement**.*
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 10)  # REQUIRED so the result is reproducible!
+
+```
+
+\
+**(b)** Create $m=1000$ random samples of size $n=20$ from the population of claims stored in the `auto_claims_population.csv` data set. For each random sample $i$, compute the sample mean $\bar{x}_i$ of the `age` of the 20 claimants and make a histogram of their values.
+
+*Hint: Check to ensure that each random sample is taken **without replacement**.*
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 11)  # REQUIRED so the result is reproducible!
+
+```
+
+\
+**(c)** Calculate the overall mean ($\langle{\bar{x}_i}\rangle = {\rm mean}(\bar{x}_1 + \bar{x}_2 + \dots + \bar{x}_m)$) and standard deviation ($s_{\bar{x}_i} = {\rm sd}(\bar{x}_1 + \bar{x}_2 + \dots + \bar{x}_m)$) of the sample means. 
+
+```{r}
+# code your answer here
+
+```
+
+Compare the mean value to the population mean $\mu$ from the entire data set of $n=1000$ observations. Are they similar relative to the standard deviation? Justify your answer in 1-2 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** Compute $m=1000$ bootstrap samples from `ages20`. Then, repeat the analysis above by computing the mean age of claimants $\bar{x}_i$ for each bootstrap sample $i$, make a histogram of their values, and calculate the overall mean $\langle{\bar{x}_i}\rangle$ and standard deviation $s_{\bar{x}_i}$ of the bootstrap sample means. 
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 12)  # REQUIRED so the result is reproducible!
+
+```
+
+Compare their values to the population mean $\mu$ and your previously computed values for mean of the sample means $\langle{\bar{x}_i}\rangle$ and the standard deviation of the sample means $s_{\bar{x}_i}$. Are they similar? Describe your observations in 1-2 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)** What distribution do the distributions we simulated in (b) and (d) both estimate? Based on this, should we expect (portions of) our results from (b) and (d) to be similar or different? Why or why not? Please describe your thoughts on these questions in 2-3 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 2: Driving on the "Right" Side of the Road
+
+In this question, you will explore data about cars drive on the right or left side of the road in different countries. World Standards' [list of left driving countries](https://www.worldstandards.eu/cars/list-of-left-driving-countries/) shows that 86 of all 270 countries in the world drive on the left side of the road.
+
+```{r}
+roaddata <- tibble(road_side = c(rep("left", 86), rep("right", 270-86)))
+glimpse(roaddata)
+```
+
+\
+**(a)** Pipe the `roaddata` `tibble` into the `slice_sample(n=100)` function to select a random sample of 100 countries. Call this new data `road_100`.
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 20)  # REQUIRED so the result is reproducible!
+
+```
+
+Are the observations in `roaddata` the *entire population*, or a *sample* from a population? How about `road_100`?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** Define $f_{\rm left}$ as the fraction of countries globally where cars drive on the left side of the road (86 out of 270), and $f_{\rm left, 100}$ as the equivalent proportion in your random sample of 100 countries. Using `road_100`, simulate $m=2000$ bootstrap samples and calculate the fraction of countries $\hat{f}_{\rm left, 100}$ who drive on the left in each of these bootstrap samples (i.e. your simulated values). Then produce a histogram of $\hat{f}_{\rm left, 100}$ to show the bootstrap sampling distribution for $f_{\rm left, 100}$ (the fraction of regions that drive on the left side in a random sample of 100 countries).
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 21)  # REQUIRED so the result is reproducible!
+
+```
+
+\
+**(c)** Calculate a 90% bootstrap confidence interval for $f_{\rm left}$, the true fraction of countries/regions which have cars drive on the left, using the bootstrap sampling distribution you generated in (c).
+
+```{r}
+# code your answer here
+
+```
+
+\
+**(d)** Assume for the moment that your 90% bootstrap confidence interval was (0.27, 0.44). Indicate whether or not each of the following statements is a correct interpretation of the confidence interval constructed in part (c) and justify your answers in 1-2 sentences.
+
+*Note: Your own confidence interval is almost certainly different from this based on your random seed.*
+
+(A) We are 90% confident that between 27% and 44% of countries/regions in our `road_100` sample from (b) drive on the left side.
+  
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+(B) There is a 90% chance that between 27% and 44% of *all* countries in the population drive on the left side. 
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+(C) If we consider many random samples of 100 countries/regions, and we calculate 90% bootstrap confidence intervals for each sample, approximately 90% of these confidence intervals will include the true proportion of countries/regions in the population who drive on the left side of the road.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)** If we want to be *more* confident about capturing the proportion of all countries who drive on the left side, should we use a *wider* confidence level (e.g., 95%) or a *narrower* confidence level (e.g., 50%)? Justify your answer in 1-3 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(f)** If we increase the size of the sample, do we expect the size of the 90% confidence interval to increase or decrease? Why? Describe your reasoning in 1-3 sentences. 
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(g)** Define two new samples, `road_50` and `road_150` with $n=50$ and $n=150$ observations, respectively, and re-compute the 90% bootstrap confidence interval for each sample.
+
+```{r}
+# code your answer here for `road_50` (define the sample and compute the CI)
+set.seed(student_num_last3 + 22)  # REQUIRED so the result is reproducible!
+
+```
+
+```{r}
+# code your answer here for `road_150` (define the sample and compute the CI)
+set.seed(student_num_last3 + 23)  # REQUIRED so the result is reproducible!
+
+```
+
+Did the results match your expectations from (f)? Why or why not?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(h)** Is there a minimum sample size where bootstrapping would cease to be very effective? How about a maximum sample size? Justify your answers in 1-2 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(i)** Instead of computing confidence intervals, we could instead carry out a hypothesis test to investigate whether or not countries are equally likely to drive on the right or to the left side of the road. State the null and alternative hypotheses for such a test.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(j)** Simulate $m=250000$ values of $\hat{f}_{\rm left, 100}$ you would get under the null hypothesis using direct simulation (i.e. *not bootstrapping*) and plot a histogram to highlight the associated sampling distribution. Then, compute the associated 2-sided $p$-value.
+
+*Important note: We have three potential quantities of interest here: the population parameter $f_{\rm left}$, the sampled value $f_{\rm left, 100}$ involving $n=100$ countries/regions, and the simulated values $\hat{f}_{\rm left, 100}$. Simulated values of $\hat{f}_{\rm left, 100}$ give us a sampling distribution for $f_{\rm left, 100}$. In general, if the simulated values are computed using bootstrapping we can use them to compute confidence intervals but cannot use them to compute $p$-values while if the simulated values are computed assuming a particular null hypothesis, then we can use them to compute $p$-values but cannot use them to compute confidence intervals.*
+
+*Hint: You may be able to re-use some code from earlier answers as well as some of the code from Problem Set 4 here.*
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 24)  # REQUIRED so the result is reproducible!
+
+```
+
+\
+**(k)** Decide whether you would accept or reject the null using a rejection rule based on a significance level of $\alpha=0.1$. Is this conclusion "consistent" with the 90% confidence interval you computed earlier? Why or why not? Describe your reasoning in 2-3 sentences.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 3: Gestation Data
+
+In this question we will look at data from [Child Health and Development Studies](https://www.chdstudies.org/about_us/index.php). Our data are adapted from the `Gestation` data set in the `mosaicData` package. Birth weight, date, and gestational period were collected as part of the Child Health and Development Studies in 1961 and 1962 for a sample of 400 mothers who had babies in these two years. Information about the baby's parents, including age, education, height, weight, and whether the mother smoked, was also recorded.
+
+We will find confidence intervals for parameters related to the distribution of the mother's age, which for this sample is stored in the variable `age`.
+
+```{r, message=FALSE}
+gestation <- read_csv("gestation.csv")
+glimpse(gestation)
+```
+\
+**(a)** Suppose we are interested in how the mean ages $\bar{a}_{400}$ of random samples of $n=400$ mothers might vary across all possible samples of 400 mothers we could take from the population. Explain in 1-3 sentences why it is not possible to use these data (i.e., `gestation`) to estimate this like we did in Question 1.
+
+*Hint: Your answers for (1e) might be relevant here.*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** Using $m=5000$ bootstrap samples, estimate the 99% confidence interval for the true *mean* age of a mother across the entire population at the time this sample was taken.
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 30)  # REQUIRED so the result is reproducible!
+
+```
+
+\
+**(c)** Explain in 2-5 sentences why the interpretation *"There is a 99% chance that the true mean age of a mother across the entire population at the time this sample was taken is between X and Y years."* would be *INCORRECT* and what the correct interpretation should actually be.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** Using $m=2000$ bootstrap samples, find an 80% bootstrap confidence interval for the true *median* age of a mother across the entire population at the time this sample was taken.
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 31)  # REQUIRED so the result is reproducible!
+
+```
+
+Write 1-2 sentences interpreting this interval.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+**(e) (OPTIONAL BUT STRONGLY RECOMMENDED)** Now it's time to bring everything together! It's time to verify the accuracy of your 80% bootstrap confidence intervals. First, perform the following procedure $k=100$ times:
+
+1. Create a random sample (i.e. sampling without replacement) containing $n=100$ observations from the total data set of $n=400$ observations.
+2. Compute the 80% bootstrap confidence interval for the true median age based on that random sample using $m=1000$ bootstraps.
+3. Check if the true median age is within the 80% confidence interval, storing a value in a vector that takes the value `TRUE` if so and `FALSE` if not.
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 32)  # REQUIRED so the result is reproducible!
+
+```
+
+Visualize the resulting outcomes in a barplot below. Then, compute the total fraction of times $f_{80}$ the true median age falls inside the 80% confidence interval.
+
+```{r}
+# code your answer here
+
+```
+
+
+Finally perform a hypothesis test assuming a null hypothesis of $H_0: f_{80} = 0.8$ and an alternative hypothesis of $H_1: f_{80} \neq 0.8$ using $m=1000$ simulated values (for a sample size of $k=100$).
+
+```{r}
+# code your answer here
+set.seed(student_num_last3 + 33)  # REQUIRED so the result is reproducible!
+
+```
+
+Based on an $\alpha=0.05$ significance level, what conclusion should we reach about the accuracy of our confidence intervals?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
