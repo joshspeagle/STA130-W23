@@ -1,0 +1,308 @@
+---
+title: "STA130 Rstudio Homework"
+author: "[Student Name] ([Student Number]), with Josh Speagle & Scott Schwartz"
+subtitle: Problem Set 6
+urlcolor: blue
+output:
+  pdf_document: default
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE, include=TRUE, echo=TRUE, message=FALSE, warning=FALSE)
+```
+
+# Instructions
+
+Complete the exercises in this `.Rmd` file and submit your `.Rmd` and knitted `.pdf` output through [Quercus](https://q.utoronto.ca/courses/296457) by 11:59 pm E.T. on Thursday, March 9.
+
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+# Question 1: Broadway, the Musical
+
+Lin-Manuel Miranda was nominated for "Best Original Song" for the March 27, 2022 the Academy Awards (also known as the Oscars) for his work on the Disney movie Encanto. Miranda had already won an Emmy, Grammy, and Tony (mostly for his work on the broadway musical "Hamilton"), so he was very close to the (EGOT)[https://www.vanityfair.com/hollywood/2022/02/oscar-nominations-2022-will-lin-manuel-miranda-finally-egot-for-encanto] (Emmy, Grammy, Oscar and Tony), a rare occurrence as only 16 people have won all four awards [see here](https://en.wikipedia.org/wiki/List_of_EGOT_winners#:~:text=As%20of%202022%2C%2016%20people,any%20of%20the%20EGOT%20awards.).
+
+Unfortunately, Miranda did not win the Oscar in 2022. Perhaps he will soon!
+
+In this question, we will look at a sample of weekly Broadway musical data available in the `broadway.csv`. This data set contains a sample of Broadway musical information for 500 weeks from 1985 to 2020. In this data set, an observation is one Broadway musical in a particular week (ending on a Sunday). Variables of interest are:
+
+- `show`: Name of the Broadway musical/show.
+- `Hamilton`: indicates whether the musical is Hamilton or not.
+- `week_ending`: Date of the end of the weekly measurement period. Always a Sunday.
+- `weekly_gross_overall`:	Weekly box office gross for all shows.
+- `avg_ticket_price`:	Average price of tickets sold in a particular week.
+- `top_ticket_price`:	Highest price of tickets sold in a particular week.
+- `seats_sold`:	Total seats sold for all performances and previews in a particular week.
+- `pct_capacity`:	Percent of theater capacity sold. Shows can exceed 100% capacity by selling standing room tickets.
+
+```{r}
+# load in data
+broadway_data <- read_csv("broadway.csv")
+
+# preview data
+glimpse(broadway_data)
+```
+In this question, we will explore different ways to estimate the average ticket price for Broadway shows.
+
+\
+**(a)** Make a **scatter plot** showing the relationship between the average ticket price (on the y-axis) and the weekly gross overall sales (on the x-axis).
+
+```{r}
+# code you answer here
+
+```
+
+In 1-2 sentences, explain whether or not you think it is appropriate to characterize and summarize the association in the above plot with a straight line.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** Use the `mutate()` function to add the new variables `log_avg_ticket_price = log10(avg_ticket_price)` and `weekly_gross_overall_mil=weekly_gross_overall/1e6` to the data set.
+
+*Note: Based on the dataset(s) you are working with on the capstone project, you may already be experimenting with **transforming variables** to improve the behaviour of your modelling approach and/or quality of your predictions. You will likely learn more about transforming variables in future courses.*
+
+```{r}
+# code you answer here
+
+```
+
+Now plot the association between `log_avg_ticket_price` (on the y-axis) and `weekly_gross_overall_mil` (on the x-axis) and use `geom_smooth(method=lm, se=FALSE)` to add a **line of best fit** to the plot.
+
+```{r}
+# code you answer here
+
+```
+
+
+In 2-4 sentences, describe the association you observe in the plot and whether the transformation to `log_avg_ticket_price` and/or `weekly_gross_overall_mil` was helpful or not.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Use the `cor()` function to calculate the **correlation** between `log_avg_ticket_price` and `weekly_gross_overall_100k`.
+
+*Hint: Remember that you can access individual variables/columns in a tibble using the syntax `tibble$variable`.*
+
+```{r}
+# code you answer here
+
+```
+
+In 1-2 sentences, discuss whether this number implies `log_avg_ticket_price` and `weekly_gross_overall_mil` are strongly/weakly/not at all positively/negatively correlated.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** Write down a simple **linear regression model** with a **response variable** $y$ corresponding to `log_avg_ticket_price` and an **explanatory variable** $x$ corresponding to `weekly_gross_overall_mil`.
+
+*Hint: A reminder that if you math equations or other symbols directly from another source into your .Rmd document, you may get errors when trying to knit. Instead, try and use `$` notation to write equations. A single `$y=a$` will get you math within text, while `$$\hat{y} = \hat{\beta}_0 + \hat{\beta}_1$$` will put your equation on a new line by itself. A few useful symbols here may include epsilon ($\epsilon$), "not equal" ($\neq$), superscripts (e.g. $i^{\rm th}$), and subscripts (e.g. $i_{\rm th}$).*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+Now explain each component of the model above.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)** State the **null and alternative hypotheses** you would use to assess whether the slope of the linear regression model where `weekly_gross_overall_100k` is predicting `log_avg_ticket_price`.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(f)** Use the `lm()` function to find the line of best fit for your simple linear regression model and provide a summary of the results by piping your output into the `summary()` function.
+
+*Hint: Please remember to check on the format of the input arguments for `lm()`, since they are different from most of the functions we are have previously dealt with.*
+
+```{r}
+# code you answer here
+
+```
+
+In 3-6 sentences, interpret the different rows/columns/entries from the `summary()` output in the context of the underlying data and model.
+
+*Hint: In addition to information on the course slides, you may find [this post](https://stats.stackexchange.com/questions/5135/interpretation-of-rs-lm-output) helpful to interpret all the different parts of the summary output.*
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+Using an $\alpha$ significance level of $\alpha=10^{-3}$, draw a conclusion regarding the hypothesis test you defined earlier related to the inferred slope.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 2: Hamilton
+
+\
+**(a)** Use `mutate()` to create a new column, `log_top_ticket_price`, the same way you created `log_avg_ticket_price`. Then, make a scatter plot of the association between `log_top_ticket_price` (on the y-axis) and `log_avg_ticket_price` (on the x-axis) **faceted** by whether the musical was "Hamilton" or not.
+
+*Hint: Using `ggplot`, adding `+ facet_wrap(~ Hamilton)` to the options is an easy way to facet the data.*
+
+```{r}
+# code you answer here
+
+```
+
+\
+**(b)** Calculate the correlation between `log_top_ticket_price` and `log_avg_ticket_price` for both Hamilton and non-Hamilton musicals.
+
+*Hint: You might find `group_by()` and `summarize()` to be helpful here. Also, remember to be on the lookout for `NA` values.*
+
+```{r}
+# code you answer here
+
+```
+
+Write 1-2 sentences discussing what the correlations you computed above imply in terms of how much `log_top_ticket_price` and `log_avg_ticket_price` relate to each other and whether there are any big differences between whether the musical was Hamilton or not.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Find the lines of best fit for a simple linear regression model for the Hamilton and non-Hamilton musicals, respectively. Then provide a summary of the results by piping your output(s) into the `summary()` function.
+
+```{r}
+# code you answer here
+
+```
+
+In 2-3 sentences, please comment on what the fitted coefficients (slope and intercept) of your model implies for the relationship between `log_top_ticket_price` and `log_avg_ticket_price`. Based on the estimated standard errors, do you think the fitted coefficients of the two models are meaningfully different?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** Plot the association between `log_top_ticket_price` (on the y-axis) and `log_avg_ticket_price` (on the x-axis) split up by `Hamilton` using `facet_wrap()` and with the line of best fit added to both panels using `geom_smooth(method=lm, se=FALSE)`.
+
+```{r}
+# code your answer here
+
+```
+
+
+# Question 3: Starbucks
+
+The `starbucks.csv` dataset contains data on calories and carbohydrates (in grams) in Starbucks food menu items.  
+
+```{r}
+# load in data
+starbucks_data <- read_csv("starbucks.csv")
+
+# preview data
+glimpse(starbucks_data)
+```
+
+\
+**(a)**  Produce a plot that shows the association between carbohydrates (y-axis) and calories (x-axis) in Starbucks menu items. 
+
+```{r}
+# code you answer here
+
+```
+
+Write 1-2 sentences describing any association you observe.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(b)** Estimate the correlation coefficient between carbohydrates and calorie content in Starbucks menu items based on the plot you produced above *entirely by eye* (i.e. without actually computing anything). Write and then justify your answer below.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+Now calculate the correlation between carbohydrate and calorie content of Starbucks menu items.
+
+```{r}
+# code you answer here
+
+```
+
+How does this compare to your earlier "by eye" estimate?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Fit a simple linear regression model where `calories` is the response variable and `carb` is the explanatory variable to these data. Describe the main results highlighted in the `summary()` output in 2-3 sentences.
+
+```{r}
+# code you answer here
+
+```
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** Based on the estimated line of best fit computed above, calculate/extract the fitted residuals $\epsilon_1,\dots,\epsilon_n$ and plot them as a function of the explanatory variable `carb`.
+
+*Hint: The output of the `lm()` function might be handy here. Try `?lm` to get some additional information on the values that are returned.*
+
+```{r}
+# code you answer here
+
+```
+
+In 1-2 sentences, comment on any trends (or lack of trends) that you may observe and what this implies about the overall fitted relationship.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+
+# Question 4: No Free Lunch
+
+\
+**(a)** Based on the Starbucks data, create a new data set called `starbucks_lunch` which only contains food items of the `"sandwich"` or `"bistro box"` in `type`. Then create a box plot comparing the distribution of calories for these two types of items along with a summary table containing the total number of objects in each group along with their respective mean calories.
+
+```{r}
+# code you answer here
+
+```
+
+\
+**(b)** Write down a simple **linear regression model** with a **response variable** $y$ corresponding to `calories` and an **explanatory variable** $x$ corresponding to an binary **indicator variable** as a function of `type`. In other words, $x$ takes values of $1$ or $0$ and is defined as:
+
+$$
+x = \begin{cases}
+1 \:{\rm if}\: {\rm `type`} = {\rm `sandwich`} \\
+0 \:{\rm if}\: {\rm `type`} = {\rm `bistro box`}
+\end{cases}
+$$
+
+Note that this is equivalent to coercing `type == "sandwich"` to an integer value.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+Now explain each component of the model above. Note that your interpretation should involve the mean calories for items in each respective group.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(c)** Write down a hypothesis test for whether the mean calories for items in each group are the same or different.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(d)** Fit your linear regression model for `calories` based on `type` to test whether there is a difference in mean calories between `"bistro box"` and `"sandwich"` items. Summarize your results using the `summary` function.
+
+*Hint: The syntax `lm(y ~ x)` will still work even if `x` is a binary explanatory variable.*
+
+```{r}
+# code you answer here
+
+```
+
+Based on the p-value results above and assuming an $\alpha = 0.05$ significance level, what would be the result of your previous hypothesis test?
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
+\
+**(e)** Instead of the linear regression approach above, now perform a **permutation test** to try and answer your 2-sample hypothesis test from earlier using $m=1000$ repeats. Plot the resulting distribution of simulated test statistics using a histogram and then compute the corresponding 2-sided $p$-value.
+
+*Hint: Some of your code from HW4 might be helpful here.*
+
+```{r}
+set.seed(130)
+
+# code you answer here
+
+```
+
+How does this $p$-value compare to the one computed using the linear regression-based test? Does your original conclusions (accept/reject) change as a result? Based on the number of observations in each group, in 1-2 sentences comment on which test (if any) you would consider more reliable and why.
+
+> *REPLACE THIS TEXT WITH YOUR ANSWER*
+
